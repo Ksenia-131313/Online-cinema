@@ -15,7 +15,7 @@ Python, Django, SQLite, Django REST Framework, HTML, CSS, JavaScript.
 ### Установка и запуск
 
 1. Клонируйте репозиторий:
-   ```bash git clone https://github.com/Ksenia-131313/Online-cinema.git cd Sunshine ```
+   ```bash git clone https://github.com/Ksenia-131313/Online-cinema.git cd Online-cinema  ```
 
 2. Создайте виртуальное окружение и установите зависимости:
    ```bash python -m venv venv venv\Scripts\activate pip install -r requirements.txt ```
