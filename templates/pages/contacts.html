@@ -1,37 +1,44 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <section class="ab-info-main py-md-5 py-4 editContent">
-    <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
-        <h1>Контакты </h1>
+
+    <div class="text-title-home">
+        <p>SUNSHINE CINEMA</p>
+        <h1>Свяжитесь с нами</h1>
+        <p>Мы всегда готовы ответить на ваши вопросы</p>
     </div>
-        <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
-            <h3>8 (965) 165-98-87</h3>
-        </div>
-    
-    <div class="progress-list" style="flex-wrap: wrap; justify-content: center; display: flex">
+
+    <div class="progress-list">
+
         <div class="progress-item">
             <div class="text-title-home">
                 <h4>Колл-центр</h4>
             </div>
+
             <div class="text">
-                <h6>часы работы 10.00-23.00</h6>
+                <a href="tel:+79651659887">8 (965) 165-98-87</a>
+                <p>Часы работы</p>
+                <h6>Ежедневно, 10:00–23:00</h6>
             </div>
         </div>
+
         <div class="progress-item">
             <div class="text-title-home">
                 <h4>Сотрудничество и реклама</h4>
             </div>
+
             <div class="text">
-                <h6><a href="/contacts/">pr@sunshine.ru</a></h6>
+                <p>По вопросам сотрудничества<br>и размещения рекламы</p>
+                <a href="mailto:pr@sunshine.ru">pr@sunshine.ru</a>
             </div>
         </div>
+
     </div>
 
-
-
-    
-
-
+    <div class="text-title-home">
+        <p>Sunshine — кино, которое объединяет</p>
+    </div>
 
 </section>
 {% endblock content %}

@@ -2,68 +2,132 @@
 {% load static %}
 {% block subs %}
 
-<section class="ab-info-main py-md-5 py-4 editContent">
-{% if  not user.profile.id in profiles  %}
-    <div class="title-movie mt-8">
-        <h1>Оформление подписки "{{ subscriptions.title }}"</h1>
-        <p class="text-title-home">Перед покупкой проверьте введенные данные</p>
+<section class="ab-info-main py-md-5 py-4 editContent sunshine-login">
+
+    {% if not user.profile.id in profiles %}
+
+    <div class="login-heading">
+        <span class="login-eyebrow">SUNSHINE CINEMA</span>
+        <h1>Оформление подписки</h1>
+        <p>Проверь данные перед оформлением</p>
     </div>
 
+    <div class="login-card">
 
-    <form method='post' class="mt-4" id="formReview" action="{% url 'add_pay' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="about-block">
-            <div style="flex-wrap: wrap; justify-content: center; display: flex">
-                <div class="text-title-home" style="margin-right:20px">
-                  <label>Подписка</label>
-                  <input class="progress-item"
-                    name='subscriptions_name' style="width:100%" value="{{ subscriptions.title }}" readonly  type ="text">
-                    <input name='subscriptions' style="width:100%" value="{{ subscriptions.id }}" hidden="True">
-                </div>
-      
-                <div class="text-title-home" style="margin-right:20px">
-                  <label>Дата начала подписки</label>
-                  <input class="progress-item"
-                    type="date" style="width:100%" name="valid_from" value="{{ time_now }}"  readonly>
-                </div>
-            </div>
-            <div style="flex-wrap: wrap; justify-content: center; display: flex">
-                {% if subscriptions.id == 2  %}
-                <div class="text-title-home" style="margin-right:20px">
+        <div class="login-description">
+            <h2>{{ subscriptions.title }}</h2>
+            <p>Подтверди информацию о подписке и покупателе.</p>
+        </div>
+
+        <form method="post" id="formReview" action="{% url 'add_pay' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="login-fields">
+
+                <p>
+                    <label>Подписка</label>
+                    <input
+                        class="progress-item"
+                        name="subscriptions_name"
+                        style="width:100%"
+                        value="{{ subscriptions.title }}"
+                        readonly
+                        type="text"
+                    >
+                    <input
+                        name="subscriptions"
+                        value="{{ subscriptions.id }}"
+                        type="hidden"
+                    >
+                </p>
+
+                <p>
+                    <label>Дата начала подписки</label>
+                    <input
+                        class="progress-item"
+                        type="date"
+                        style="width:100%"
+                        name="valid_from"
+                        value="{{ time_now }}"
+                        readonly
+                    >
+                </p>
+
+                {% if subscriptions.id == 2 %}
+                <p>
                     <label>Дата окончания подписки</label>
-                    <input class="progress-item" 
-                          type="date" name='valid_until' style="width:100%" value="{{ time_months }}"  readonly>
-                </div>
+                    <input
+                        class="progress-item"
+                        type="date"
+                        name="valid_until"
+                        style="width:100%"
+                        value="{{ time_months }}"
+                        readonly
+                    >
+                </p>
                 {% else %}
-                <div class="text-title-home" style="margin-right:20px">
+                <p>
                     <label>Дата окончания подписки</label>
-                    <input class="progress-item"
-                          type="date" style="width:100%" name='valid_until' value="{{ time_year }}"  readonly >
-                  </div>
+                    <input
+                        class="progress-item"
+                        type="date"
+                        style="width:100%"
+                        name="valid_until"
+                        value="{{ time_year }}"
+                        readonly
+                    >
+                </p>
                 {% endif %}
-                <div class="text-title-home" style="margin-right:20px">
-                      <label>Покупатель</label>
-                      <input class="progress-item"
-                      name='profile_name' style="width:100%" value="{{ user.username }}" readonly >
-                      <input name='profile'  style="width:100%" value="{{ user.id }}" hidden="True" >
-                </div>
+
+                <p>
+                    <label>Покупатель</label>
+                    <input
+                        class="progress-item"
+                        name="profile_name"
+                        style="width:100%"
+                        value="{{ user.username }}"
+                        readonly
+                    >
+                    <input
+                        name="profile"
+                        value="{{ user.id }}"
+                        type="hidden"
+                    >
+                </p>
+
             </div>
-        </div>
-        <div style="padding: 50px; flex-wrap: wrap; justify-content: center; display: flex">
-            <button type='submit'
-                style="padding: 10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63)); width: 50%">Оформить</button>
-        </div>
-    </form>
 
-{% else %}
-    <div class="title-movie mt-8">
-        <h1>{{ request.user.username }}, ваша подписка уже оформлена! </h1>
-        <p class="text-title-home">Дождитесь окончания старой! 
-        </p>
-    </div>
-{% endif %}
+            <button class="login-submit" type="submit">
+                <span>Оформить подписку</span>
+                <span class="login-submit-arrow">→</span>
+            </button>
 
+            <div class="login-footer">
+                <span>Твоя следующая история начинается здесь</span>
+            </div>
+
+        </form>
     </div>
+
+    {% else %}
+
+    <div class="login-heading">
+        <span class="login-eyebrow">SUNSHINE CINEMA</span>
+        <h1>{{ request.user.username }}, подписка уже оформлена!</h1>
+        <p>Дождись окончания действующей подписки, чтобы оформить новую.</p>
+    </div>
+
+    <div class="login-card">
+        <div class="login-description">
+            <h2>Подписка активна</h2>
+            <p>Новая подписка пока недоступна, поскольку у тебя уже есть оформленная подписка.</p>
+        </div>
+    </div>
+
+    {% endif %}
+
 </section>
+
 {% endblock subs %}

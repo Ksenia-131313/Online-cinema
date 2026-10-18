@@ -13,6 +13,10 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
+from rest_framework import viewsets
+from .serializers import MovieSerializer, GenreSerializer, RatingSerializer
+from .models import Movie, Genre, Rating
+
 
 class ProfileDeleteView(DeleteView):
     model = User
@@ -23,6 +27,7 @@ class MovieDeleteView(DeleteView):
     model = Movie
     success_url ="/"
     template_name = "movies/delete_movie.html"
+
 
 def profile(request):
     users = request.user
@@ -51,11 +56,48 @@ class GenreYear:
     def get_years(self):
         return Movie.objects.filter(draft=False).values('year').distinct()
 
+
+
+def sort_movies(queryset, request):
+    sort = request.GET.get("order", "-id")
+
+    if sort == "title":
+        return queryset.order_by("title", "-id")
+
+    if sort == "-title":
+        return queryset.order_by("-title", "-id")
+
+    if sort == "year":
+        return queryset.order_by("year", "-id")
+
+    if sort == "-year":
+        return queryset.order_by("-year", "-id")
+
+    return queryset.order_by("-id")
+
+
+
 class MoviesView(GenreYear, ListView):
     """Список фильмов"""
     model = Movie
-    queryset = Movie.objects.filter(draft=False).order_by('-id')
     paginate_by = 8
+
+    def get_queryset(self):
+        queryset = Movie.objects.filter(draft=False)
+        return sort_movies(queryset, self.request)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["banner_movies"] = Movie.objects.filter(
+            draft=False
+        ).order_by("-id")[:5]
+
+        context["selected_genres"] = self.request.GET.getlist("genre")
+        context["selected_years"] = self.request.GET.getlist("year")
+
+        return context
+
 
 class MovieDetailView(DetailView, GenreYear):
     """Полное описание фильма"""
@@ -85,21 +127,45 @@ class AddReview(View):
         return redirect(movie.get_absolute_url())
     
 class FilterMoviesView(GenreYear, ListView):
-    #Фильтрация фильмов
+    """Фильтрация фильмов"""
+    model = Movie
     paginate_by = 10
-    def get_queryset(self):
-        #С помощью getlist мы из запроса GET достаем все значения годов
-        queryset = Movie.objects.filter(
-            #Q - для выбора "или"
-            Q(year__in=self.request.GET.getlist('year'))|
-            Q(genres__in=self.request.GET.getlist('genre'))).distinct()
-        return queryset
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
-        context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+    def get_queryset(self):
+        queryset = Movie.objects.filter(draft=False)
+
+        years = self.request.GET.getlist("year")
+        genres = self.request.GET.getlist("genre")
+
+        if years:
+            queryset = queryset.filter(year__in=years)
+
+        if genres:
+            queryset = queryset.filter(genres__id__in=genres)
+
+        queryset = queryset.distinct()
+
+        return sort_movies(queryset, self.request)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["banner_movies"] = Movie.objects.filter(
+            draft=False
+        ).order_by("-id")[:5]
+
+        context["selected_years"] = self.request.GET.getlist("year")
+        context["selected_genres"] = self.request.GET.getlist("genre")
+
         return context
+    #def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["selected_years"] = self.request.GET.getlist("year")
+        context["selected_genres"] = self.request.GET.getlist("genre")
+
+        return context#
+
+
     
 class AddStarRating(View):
     """Добавление рейтинга фильму"""
@@ -136,13 +202,44 @@ class JsonFilterMoviesView(ListView):
         queryset = list(self.get_queryset())
         return JsonResponse({"movies": queryset}, safe=False)
 
-class Search(ListView):
-    #Поиск фильмов
+class Search(GenreYear, ListView):
+    """Поиск фильмов"""
+    model = Movie
+    paginate_by = 8
+
     def get_queryset(self):
-        return Movie.objects.filter(title__icontains=self.request.GET.get('q'))
-    def ger_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['q'] = self.request.GET.get('q')
+        queryset = Movie.objects.filter(draft=False)
+
+        query = self.request.GET.get("q", "").strip()
+
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+
+        return sort_movies(queryset, self.request)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["banner_movies"] = Movie.objects.filter(
+                    draft=False
+                ).order_by("-id")[:5]
+        context["q"] = self.request.GET.get("q", "")
+        context["selected_genres"] = self.request.GET.getlist("genre")
+        context["selected_years"] = self.request.GET.getlist("year")
+
         return context
     
 
+
+
+# DRF ViewSets для Swagger / API
+class MovieViewSet(viewsets.ModelViewSet):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+class RatingViewSet(viewsets.ModelViewSet):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer

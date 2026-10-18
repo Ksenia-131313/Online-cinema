@@ -15,8 +15,6 @@ class MovieAdminForm(forms.ModelForm):
     description = forms.CharField(label='Описание', widget=CKEditorUploadingWidget())
     description_film = forms.CharField(label='Фильм', widget=CKEditorUploadingWidget())
     description_trel = forms.CharField(label='Трейлер', widget=CKEditorUploadingWidget())
-    # description_ru = forms.CharField(label='Описание', widget=CKEditorUploadingWidget())
-    # description_en = forms.CharField(label='Описание', widget=CKEditorUploadingWidget())
     class Meta:
         model = Movie
         fields = '__all__'
@@ -47,6 +45,12 @@ class MovieShotsInline(admin.TabularInline):
     get_image.short_description = "Изображение"
 
 
+
+
+
+
+
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     """Фильмы"""
@@ -65,7 +69,7 @@ class MovieAdmin(admin.ModelAdmin):
             "fields": (("title", "tagline"),)
         }),
         (None, {
-            "fields": (("poster", "get_image"), "description", 'description_film', 'description_trel')
+            "fields": (("poster", "get_image"),"banner", "description", 'description_film', 'description_trel')
         }),
         (None, {
             "fields": (("year", "world_premiere", "country"),)

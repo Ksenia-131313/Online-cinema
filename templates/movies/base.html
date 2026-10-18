@@ -1,20 +1,29 @@
 {% extends 'base.html' %}
-{% block title %} {% endblock title %}
+
+{% block title %}{% endblock title %}
+
 {% block content %}
-    <section class="ab-info-main py-md-5 py-4 editContent">
+   <section class="ab-info-main py-md-5 py-4 editContent">
+
+    <div class="subscription-card">
+        <a href="{% url 'subscription' %}" class="subscription-button" style="justify-content: center; font-size: 15px;">
+            Оформить подписку на онлайн-кинотеатр Sunshine
+        </a>
+    </div>
+
         {% block container %}
             <div class="container-fluid py-md-3">
         {% endblock container %}
-        <div class="row wrapper_items_films">
-            {% block sidebar %}
-                <div class="side-bar col-lg-2">
-            {% endblock sidebar %}
+
+        <div class="catalog-layout">
+
             {% include 'include/sidebar.html' %}
-            </div>
-            
+
             {% block movie %}
             {% endblock movie %}
+
         </div>
+
         </div>
     </section>
 {% endblock content %}

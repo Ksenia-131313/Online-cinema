@@ -1,0 +1,520 @@
+/* ===== ПОДПИСКИ: КОРАЛЛОВО-ЛАЙМОВЫЙ СТИЛЬ ===== */
+
+.sunshine-subs {
+    --red: rgb(245, 111, 96);
+    --red-dark: #c94f46;
+    --red-light: rgb(226, 231, 63);
+    --text: #f5f5f5;
+    --muted: #a5a5a5;
+    --card: #171717;
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 55px 35px 75px;
+    color: var(--text);
+    overflow: hidden;
+}
+
+.sunshine-subs *,
+.sunshine-subs *::before,
+.sunshine-subs *::after {
+    box-sizing: border-box;
+}
+
+/* Общий фон */
+
+.sunshine-subs::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    width: 800px;
+    height: 450px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+        ellipse,
+        rgba(245, 111, 96, 0.13),
+        rgba(226, 231, 63, 0.06) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+/* Заголовок */
+
+.subscriptions-heading {
+    max-width: 800px;
+    margin: 0 auto 45px;
+    text-align: center;
+}
+
+.subscriptions-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.subscriptions-heading h1 {
+    margin: 0 0 15px;
+    color: var(--text);
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.2;
+}
+
+.subscriptions-heading > p {
+    max-width: 580px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Карточки подписок */
+
+.sunshine-subs .subscriptions-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px;
+
+    width: 100% !important;
+    max-width: 900px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.subscription-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 28px 25px 24px;
+    overflow: hidden;
+    background: linear-gradient(
+        145deg,
+        rgba(245, 111, 96, 0.16),
+        rgba(226, 231, 63, 0.055) 42%,
+        rgba(255, 255, 255, 0.02) 75%,
+        #171717
+    );
+    border: 1px solid rgba(245, 111, 96, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.subscription-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--red),
+        var(--red-light),
+        transparent
+    );
+}
+
+.subscription-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(245, 111, 96, 0.65);
+    background: linear-gradient(
+        145deg,
+        rgba(245, 111, 96, 0.23),
+        rgba(226, 231, 63, 0.09) 42%,
+        rgba(255, 255, 255, 0.035) 75%,
+        #171717
+    );
+    box-shadow: 0 16px 38px rgba(245, 111, 96, 0.12);
+}
+
+.subscription-card-top {
+    margin-bottom: 22px;
+}
+
+.subscription-label {
+    display: block;
+    margin-bottom: 13px;
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.subscription-card-top h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 24px;
+    overflow-wrap: anywhere;
+}
+
+.subscription-duration {
+    display: inline-block;
+    padding: 7px 12px;
+    color: var(--red-light);
+    background: rgba(226, 231, 63, 0.07);
+    border: 1px solid rgba(226, 231, 63, 0.24);
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+/* Цена */
+
+.subscription-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.subscription-price-number {
+    color: var(--red-light);
+    font-size: clamp(32px, 3vw, 42px);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.subscription-price-currency {
+    color: var(--red);
+    font-size: 23px;
+}
+
+.subscription-price-caption {
+    margin: 5px 0 22px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Описание */
+
+.subscription-description {
+    flex: 1;
+    margin-bottom: 25px;
+    padding-top: 18px;
+    color: #c7c7c7;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.subscription-description p {
+    margin: 0 0 10px;
+}
+
+.subscription-description ul,
+.subscription-description ol {
+    padding-left: 20px;
+}
+
+.subscription-description li {
+    margin-bottom: 6px;
+}
+
+/* Кнопка подписки */
+
+.subscription-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 16px;
+    color: #171717 !important;
+    background: linear-gradient(
+        110deg,
+        rgb(245, 111, 96),
+        #ee8c66 55%,
+        rgb(226, 231, 63)
+    );
+    border: 1px solid rgba(245, 111, 96, 0.35);
+    border-radius: 9px;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 5px 16px rgba(245, 111, 96, 0.15);
+    transition: filter 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.subscription-button:hover {
+    color: #171717 !important;
+    filter: brightness(1.06);
+    box-shadow: 0 7px 22px rgba(245, 111, 96, 0.22);
+    transform: translateY(-1px);
+}
+
+.subscription-button span {
+    font-size: 21px;
+}
+
+.subscriptions-empty {
+    grid-column: 1 / -1;
+    padding: 35px;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid rgba(245, 111, 96, 0.18);
+    border-radius: 15px;
+}
+
+/* Преимущества */
+
+.sunshine-subs .subscriptions-benefits {
+    display: grid;
+    width: 100%;
+    max-width: 1300px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    margin: 55px auto 70px;
+    padding: 28px;
+    background: linear-gradient(
+        110deg,
+        rgba(245, 111, 96, 0.10),
+        rgba(226, 231, 63, 0.045) 50%,
+        rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(245, 111, 96, 0.16);
+    border-radius: 16px;
+}
+
+.subscription-benefit {
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+}
+
+.benefit-number {
+    flex-shrink: 0;
+    color: var(--red);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.subscription-benefit h3 {
+    margin: 0 0 7px;
+    color: var(--text);
+    font-size: 15px;
+}
+
+.subscription-benefit p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Партнёры */
+
+.subscription-partners-section {
+    padding: 30px;
+    background: linear-gradient(
+        130deg,
+        rgba(245, 111, 96, 0.08),
+        #141414 55%,
+        rgba(226, 231, 63, 0.045)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+}
+
+.subscription-partners-heading {
+    margin-bottom: 25px;
+}
+
+.subscription-partners-heading h2 {
+    margin: 0 0 10px;
+    color: var(--text);
+    font-size: clamp(24px, 3vw, 32px);
+}
+
+.subscription-partners-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.subscription-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.subscription-partner-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.subscription-partner-card:hover {
+    background: rgba(245, 111, 96, 0.06);
+    border-color: rgba(245, 111, 96, 0.32);
+}
+
+.subscription-partner-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    color: var(--red);
+    background: linear-gradient(
+        145deg,
+        rgba(245, 111, 96, 0.18),
+        rgba(226, 231, 63, 0.07)
+    );
+    border: 1px solid rgba(245, 111, 96, 0.15);
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.subscription-partner-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.subscription-partner-info h3 {
+    margin: 0 0 6px;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.subscription-partner-info p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.subscription-partner-bonus {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    color: var(--red-light);
+    background: rgba(226, 231, 63, 0.07);
+    border: 1px solid rgba(226, 231, 63, 0.20);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Адаптивность */
+
+@media (max-width: 1000px) {
+    .sunshine-subs {
+        padding: 45px 22px 60px;
+    }
+
+    .sunshine-subs .subscriptions-grid {
+        gap: 15px;
+    }
+
+    .subscription-card {
+        padding: 23px 18px;
+    }
+
+    .subscription-card-top h2 {
+        font-size: 21px;
+    }
+
+    .sunshine-subs .subscriptions-benefits {
+        gap: 18px;
+        padding: 22px;
+    }
+}
+
+@media (max-width: 760px) {
+    .sunshine-subs .subscriptions-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sunshine-subs .subscriptions-benefits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .subscription-benefit:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .subscription-partners-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .sunshine-subs {
+        padding: 35px 14px 45px;
+    }
+
+    .subscriptions-heading h1 {
+        font-size: 29px;
+    }
+
+    .sunshine-subs .subscriptions-grid,
+    .sunshine-subs .subscriptions-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .subscription-benefit:last-child {
+        grid-column: auto;
+    }
+
+    .subscription-card {
+        padding: 25px 22px;
+    }
+
+    .sunshine-subs .subscriptions-benefits {
+        padding: 22px;
+        margin: 40px auto 50px;
+    }
+
+    .subscription-partners-section {
+        padding: 22px 14px;
+    }
+
+    .subscription-partner-card {
+        gap: 10px;
+        padding: 14px 11px;
+    }
+
+    .subscription-partner-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .subscription-partner-bonus {
+        padding: 7px;
+        font-size: 11px;
+    }
+}
+.subscriptions-page-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.subscriptions-page-wrapper .sunshine-subs {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}

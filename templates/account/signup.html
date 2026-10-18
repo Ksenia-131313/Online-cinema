@@ -2,35 +2,50 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}Регистрация{% endblock %}
 
 {% block content %}
-<section class="ab-info-main py-md-5 py-4 editContent">
-  <div class="title-entry">
-    <h1>Регистрация</h1>
-  </div>
-  <div class="lg-entry">
-    Для регистрации на нашем сайте укажите ваши данные:<br> Если вы уже зарегистрированы, войдите в <a href="{{ login_url }}">свой аккаунт.</a>
-  </div>
-  <div class="about-block">
-    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-      <div class="progress-item-entry ">
-        <div class="lg-entry" style="max-width: 800px; margin: 0 auto; ">
-          {% csrf_token %}
-          {{ form.as_p }}
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
+<section class="ab-info-main py-md-5 py-4 editContent sunshine-login">
 
-        </div>
-        <div class="title-entry">
-          <button class="btn btn-outline-danger mt-3" style="width: calc(33.333% - 16px);" type="submit">Зарегистрироваться</button>
+    <div class="login-heading">
+        <span class="login-eyebrow">SUNSHINE CINEMA</span>
+        <h1>Создай свой аккаунт</h1>
+        <p>Присоединяйся к миру кино и открывай новые истории</p>
+    </div>
+
+    <div class="login-card">
+
+        <div class="login-description">
+            <h2>Регистрация</h2>
+            <p>Заполни форму, чтобы создать личный кабинет.</p>
+            <p class="login-register">
+                Уже есть аккаунт?
+                <a href="{{ login_url }}">Войти</a>
+            </p>
         </div>
 
-      </div>
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
 
-    </form>
-  </div>
+            <div class="login-fields">
+                {{ form.as_p }}
+            </div>
+
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <button class="login-submit" type="submit">
+                <span>Зарегистрироваться</span>
+                <span class="login-submit-arrow">→</span>
+            </button>
+
+            <div class="login-footer">
+                <span>Твоя следующая история начинается здесь</span>
+            </div>
+        </form>
+
+    </div>
+
 </section>
-
 {% endblock %}

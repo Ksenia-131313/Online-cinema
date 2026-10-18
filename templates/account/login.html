@@ -3,57 +3,50 @@
 {% load i18n %}
 {% load account socialaccount %}
 
+{% block head_title %}Войти{% endblock %}
 
-{% block head_title %} Войти {% endblock %}
 {% block content %}
-<section class="ab-info-main py-md-5 py-4 editContent">
-    <div class="title-entry">
+<section class="ab-info-main py-md-5 py-4 editContent sunshine-login">
+
+    <div class="login-heading">
+        <span class="login-eyebrow">SUNSHINE CINEMA</span>
         <h1>Добро пожаловать</h1>
-    </div>
-    <div class="lg-entry">
-        Для входа в личный кабинет введите своё имя пользователя и пароль<br>
-        Если у вас нет аккаунта, пожалуйста, <a href="{{ signup_url }}">зарегистрируйтесь</a>
+        <p>Войдите в свой аккаунт, чтобы продолжить просмотр</p>
     </div>
 
-    <div class="about-block">
+    <div class="login-card">
+
+        <div class="login-description">
+            <h2>Вход в личный кабинет</h2>
+            <p>Введите имя пользователя и пароль для входа.</p>
+            <p class="login-register">
+                Нет аккаунта?
+                <a href="{{ signup_url }}">Зарегистрируйтесь</a>
+            </p>
+        </div>
+
         <form class="login" method="POST" action="{% url 'account_login' %}">
-            <div class="progress-item-entry">
-                <div class="lg-entry" style="max-width: 800px; margin: 0 auto; ">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                    {% endif %}
+            {% csrf_token %}
 
-                </div>
-                <div>
-                    <button class="btn btn-outline-danger mt-3" style="width: calc(33.333% - 16px);"
-                        type="submit">Войти</button>
-                </div>
-
+            <div class="login-fields">
+                {{ form.as_p }}
             </div>
 
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <button class="login-submit" type="submit">
+                <span>Войти в аккаунт</span>
+                <span class="login-submit-arrow">→</span>
+            </button>
+
+            <div class="login-footer">
+                <span>Рады видеть вас снова!</span>
+            </div>
         </form>
+
     </div>
+
 </section>
-<!-- НА  СЛУЧАЙ РЕГИСТРАЦИИ ЧЕРЕЗ ПРИЛОЖЕНИЯ!!!!! -->
-
-<!-- {% get_providers as socialaccount_providers %}
-                {% if socialaccount_providers %}
-                    <p>{% blocktrans with site.name as site_name %} Please sign in with one
-                        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-                        for a {{ site_name }} account and sign in below:{% endblocktrans %}
-                    </p>
-                    <div class="socialaccount_ballot">
-                        <ul class="socialaccount_providers">
-                            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                        </ul>
-                        <div class="login-or">{% trans 'or' %}</div>
-                    </div>
-                    {% include "socialaccount/snippets/login_extra.html" %}
-                {% endif %} -->
-
-
-
-
 {% endblock %}

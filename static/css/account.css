@@ -1,0 +1,293 @@
+/* ===== ВХОД: SUNSHINE CINEMA ===== */
+
+.sunshine-login {
+    --red: rgb(245, 111, 96);
+    --red-dark: #c94f46;
+    --lime: rgb(226, 231, 63);
+    --text: #f5f5f5;
+    --muted: #a5a5a5;
+    --card: #171717;
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 65px 25px 80px;
+    color: var(--text);
+    overflow: hidden;
+}
+
+.sunshine-login::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    width: 800px;
+    height: 500px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+        ellipse,
+        rgba(245, 111, 96, 0.13),
+        rgba(226, 231, 63, 0.06) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.sunshine-login *,
+.sunshine-login *::before,
+.sunshine-login *::after {
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+
+.sunshine-login .login-heading {
+    max-width: 700px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.sunshine-login .login-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.sunshine-login .login-heading h1 {
+    margin: 0 0 14px;
+    color: var(--text);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sunshine-login .login-heading > p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Карточка */
+
+.sunshine-login .login-card {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 35px;
+    overflow: hidden;
+    background: linear-gradient(
+        145deg,
+        rgba(245, 111, 96, 0.13),
+        rgba(226, 231, 63, 0.045) 45%,
+        rgba(255, 255, 255, 0.02) 75%,
+        #171717
+    );
+    border: 1px solid rgba(245, 111, 96, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.sunshine-login .login-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 25px;
+    right: 25px;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--red),
+        var(--lime),
+        transparent
+    );
+}
+
+/* Описание */
+
+.sunshine-login .login-description {
+    margin-bottom: 28px;
+}
+
+.sunshine-login .login-description h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.sunshine-login .login-description p {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.sunshine-login .login-register a {
+    color: var(--red);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.sunshine-login .login-register a:hover {
+    color: var(--lime);
+}
+
+/* Поля формы */
+
+.sunshine-login .login-fields p {
+    margin: 0 0 20px;
+}
+
+.sunshine-login .login-fields label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sunshine-login .login-fields input[type="text"],
+.sunshine-login .login-fields input[type="email"],
+.sunshine-login .login-fields input[type="password"],
+.sunshine-login .login-fields input[type="number"] {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    color: var(--text);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sunshine-login .login-fields input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(245, 111, 96, 0.1);
+}
+
+.sunshine-login .login-fields input::placeholder {
+    color: #777;
+}
+
+.sunshine-login .login-fields ul {
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.sunshine-login .login-fields .helptext {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.sunshine-login .login-fields .errorlist {
+    margin: 7px 0 0;
+    padding: 0;
+    color: var(--red);
+    list-style: none;
+    font-size: 12px;
+}
+
+/* Чекбоксы */
+
+.sunshine-login .login-fields input[type="checkbox"] {
+    accent-color: var(--red);
+}
+
+.sunshine-login .login-fields label:has(input[type="checkbox"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+/* Кнопка */
+
+.sunshine-login .login-submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 8px;
+    padding: 13px 17px;
+    color: #171717;
+    background: linear-gradient(
+        110deg,
+        rgb(245, 111, 96),
+        #ee8c66 55%,
+        rgb(226, 231, 63)
+    );
+    border: 1px solid rgba(245, 111, 96, 0.35);
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: filter 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.sunshine-login .login-submit:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 7px 22px rgba(245, 111, 96, 0.2);
+    transform: translateY(-1px);
+}
+
+.sunshine-login .login-submit-arrow {
+    font-size: 21px;
+    transition: transform 0.2s;
+}
+
+.sunshine-login .login-submit:hover .login-submit-arrow {
+    transform: translateX(4px);
+}
+
+/* Нижняя подпись */
+
+.sunshine-login .login-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sunshine-login .login-footer span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Адаптивность */
+
+@media (max-width: 520px) {
+    .sunshine-login {
+        padding: 40px 14px 50px;
+    }
+
+    .sunshine-login .login-heading {
+        margin-bottom: 28px;
+    }
+
+    .sunshine-login .login-card {
+        padding: 28px 20px;
+    }
+
+    .sunshine-login .login-description h2 {
+        font-size: 21px;
+    }
+}

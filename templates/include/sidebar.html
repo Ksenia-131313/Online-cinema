@@ -1,87 +1,91 @@
 {% load movie_tag %}
-<div class="search-bar w3layouts-newsletter">
-    <form action="{% url 'search' %}" method="get" class="d-flex editContent">
-        <input type="search" placeholder="Поиск фильма" name="q" class="form-control" required="">
-        <button type="submit" class="btn1 btn">
-            <span class="fa fa-search" aria-hidden="true">
-            </span>
-        </button>
-    </form>
+
+<div class="sidebar-top">
+    <div class="catalog-toolbar">
+
+        <!-- Поиск -->
+        <form action="{% url 'search' %}" method="get"
+              class="catalog-search">
+            <input type="search"
+                   placeholder="Поиск фильма"
+                   name="q"
+                   required>
+            <button type="submit">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+
+        <!-- Фильтр -->
+        <details class="catalog-dropdown">
+            <summary>Фильтр</summary>
+
+            <form action="{% url 'filter' %}" method="get"
+                  class="catalog-dropdown__content">
+
+                <details class="filter-group">
+                    <summary>Жанры</summary>
+
+                    {% for genre in view.get_genres %}
+                    <label class="catalog-option">
+                        <input type="checkbox"
+                               name="genre"
+                               value="{{ genre.id }}">
+                        <span>{{ genre.name }}</span>
+                    </label>
+                    {% endfor %}
+                </details>
+
+                <details class="filter-group">
+                    <summary>Год</summary>
+
+                    {% for movie in view.get_years %}
+                    <label class="catalog-option">
+                        <input type="checkbox"
+                               name="year"
+                               value="{{ movie.year }}">
+                        <span>{{ movie.year }}</span>
+                    </label>
+                    {% endfor %}
+                </details>
+
+                <button type="submit" class="catalog-apply">
+                    Применить фильтр
+                </button>
+            </form>
+        </details>
+
+        <!-- Сортировка -->
+        <details class="catalog-dropdown">
+            <summary>Сортировка</summary>
+
+            <form action="{% url 'home' %}" method="get"
+                  class="catalog-dropdown__content">
+                <label class="catalog-option">
+                    <input type="radio" name="order" value="year">
+                    <span>Сначала старые</span>
+                </label>
+
+                <label class="catalog-option">
+                    <input type="radio" name="order" value="-year">
+                    <span>Сначала новые</span>
+                </label>
+                <label class="catalog-option">
+                    <input type="radio" name="order" value="title">
+                    <span>По названию (А–Я)</span>
+                </label>
+
+                <label class="catalog-option">
+                    <input type="radio" name="order" value="-title">
+                    <span>По названию (Я–А)</span>
+                </label>
+
+                <button type="submit" class="catalog-apply">
+                    Сортировать
+                </button>
+            </form>
+        </details>
+
+    </div>
 </div>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid"> 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span style="color: rgb(253, 253, 253);">&#10034;</span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <form action="{% url 'filter' %}" method="get">
-                    <div class="left-side my-4">
-                        <h3 class="sear-head editContent">Жанры</h3>
-                        <ul class="w3layouts-box-list">
-                            {% for genre in view.get_genres %}
-                            <li class="editContent">
-                                <input type="checkbox" class="checked" name="genre" value="{{ genre.id }}">
-                                <span class="span editContent">{{ genre.name }}</span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="left-side my-4">
-                        <h3 class="sear-head editContent">Год</h3>
-                        <ul class="w3layouts-box-list">
-                            {% for movie in view.get_years %}
-                            <li class="editContent">
-                                <input type="checkbox" class="checked" name="year" value="{{ movie.year }}">
-                                <span class="span editContent">{{ movie.year }}</span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn1 btn left-side my-4">Найти</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</nav> 
-
-{% comment %} 
-<div class="search-bar w3layouts-newsletter">
-    <form action="{% url 'search' %}" method="get" class="d-flex editContent">
-        <input type="search" placeholder="Поиск фильма" name="q" class="form-control" required="">
-        <button type="submit" class="btn1 btn">
-            <span class="fa fa-search" aria-hidden="true">
-            </span>
-        </button>
-    </form>
-</div>
-
-<form action="{% url 'filter' %}" method="get">
-    <div class="left-side my-4">
-        <h3 class="sear-head editContent">Жанры</h3>
-        <ul class="w3layouts-box-list">
-            {% for genre in view.get_genres %}
-            <li class="editContent">
-                <input type="checkbox" class="checked" name="genre" value="{{ genre.id }}">
-                <span class="span editContent">{{ genre.name }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="left-side my-4">
-        <h3 class="sear-head editContent">Год</h3>
-        <ul class="w3layouts-box-list">
-            {% for movie in view.get_years %}
-            <li class="editContent">
-                <input type="checkbox" class="checked" name="year" value="{{ movie.year }}">
-                <span class="span editContent">{{ movie.year }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <button type="submit" class="btn1 btn left-side my-4">Найти</button>
-</form> {% endcomment %}
 
 {% get_last_movies %}

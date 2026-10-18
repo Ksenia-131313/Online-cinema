@@ -1,39 +1,46 @@
 {% load movie_tag %}
 {% load static %}
+
 <header class="header">
-    <img class="banner" src="../../media/banner/banner.jpg" alt="banner">
     <div class="wrapper_top_nav">
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="width: 100%;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% static '/' %}">
-                    <img src='{% static "/images/logo.jpg" %}' class="logo-sait" alt="">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static '/images/logo.jpg' %}" class="logo-sait" alt="">
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span style="color: #fff;">&#9776;</span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/">Киноафиша</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/about/">О компании</a>
+                            <a class="nav-link" href="{% url 'about' %}">О компании</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/news/">Новости</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contacts/">Контакты</a>
+                            <a class="nav-link" href="/contact/">Контакты</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/news_program/">Программа лояльности</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'subscription' %}">Оформить подписку</a>
+                            <a class="btn btn-outline-danger subscription-nav-button"
+                               style="max-width: 600px;"
+                               href="{% url 'subscription' %}">
+                                30 дней бесплатно
+                            </a>
                         </li>
                     </ul>
+
                     <div class="breadcrumb-item">
                         {% if user.is_authenticated %}
                             <div class="dropdown">
@@ -48,12 +55,40 @@
                             </div>
                         {% else %}
                             <a href="{% url 'account_login' %}" class="btn btn-outline-danger"
-                            style="max-width: 600px; ">
-                                Личный кабинет</a>
+                               style="max-width: 600px;">
+                                Личный кабинет
+                            </a>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </nav>
     </div>
+
+    {% if banner_movies and request.path == '/' or request.path == '/filter/' or request.path == '/search/' %}
+        <section class="movie-carousel" aria-label="Популярные фильмы">
+            <div class="movie-carousel__track">
+                {% for movie in banner_movies %}
+                    <a class="movie-carousel__slide"
+                       href="{{ movie.get_absolute_url }}"
+                       data-index="{{ forloop.counter0 }}">
+                        <img class="movie-carousel__poster"
+                             src="{% if movie.banner %}{{ movie.banner.url }}{% else %}{{ movie.poster.url }}{% endif %}"
+                             alt="{{ movie.title }}">
+                        <div class="movie-carousel__info">
+                            <p class="movie-carousel__tagline">{{ movie.tagline }}</p>
+                            <h2>{{ movie.title }}</h2>
+                            <span class="movie-carousel__button">Смотреть</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+
+            <button class="movie-carousel__arrow movie-carousel__arrow--prev"
+                    type="button" aria-label="Предыдущий фильм">&#10094;</button>
+            <button class="movie-carousel__arrow movie-carousel__arrow--next"
+                    type="button" aria-label="Следующий фильм">&#10095;</button>
+            <div class="movie-carousel__dots"></div>
+        </section>
+    {% endif %}
 </header>

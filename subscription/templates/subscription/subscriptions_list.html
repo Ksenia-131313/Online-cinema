@@ -1,79 +1,152 @@
 {% extends 'subscription/base.html' %}
 {% block subs %}
 
-  <section class="ab-info-main py-md-5 py-4 editContent">
-    <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
-      <h1>Оформляем подписку на онлайн-кинотеатр Sunshine!!!!</h1>
-    </div>
-    <div style="flex-wrap: wrap; justify-content: center; display: flex">
-      <!-- Все подписки -->
-    {% for subscription in subscriptions_list %}
-      <div class="progress-list" style='margin: 5px'>
-        {% if user.is_authenticated %}
-          <a href="{{ subscription.get_absolute_url }}" >
-            <button class="progress-item-subs" style='background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))'>
-              <div class="text-title-home">
-                <h2>{{ subscription.title }}</h2>
-                <p>{{ subscription.month }}</p>
-              </div>
-              <p class="md-text medium"> Просмотр любимых фильмов всего за <span class="red-bg">{{ subscription.price }},00Ꝑ</span>!!!<br>
-                <br>{{ subscription.description|safe }}<br>
-              </p>
-            </button>
+<section class="sunshine-subs">
 
-          </a>
-        {% else %}
-          <a href="{% url 'account_login' %}">
-            <button class="progress-item-subs" style='background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))'>
-              <div class="text-title-home">
-                <h2>{{ subscription.title }}</h2>
-                <p>{{ subscription.month }}</p>
-              </div>
-              <p class="md-text medium"> Просмотр любимых фильмов всего за <span class="red-bg">{{ subscription.price }}</span>!!!<br>
-                <br>{{ subscription.description|safe }}<br>
-              </p>
-            </button>
-          </a>
-        {% endif %}      
-      </div>
-    {% endfor %}
+
+  <div class="subscriptions-heading">
+        <span class="subscriptions-eyebrow">SUNSHINE CINEMA</span>
+        <h1>Твоя история начинается здесь</h1>
+        <p>Выбирай подписку и наслаждайся любимыми фильмами без ограничений</p>
   </div>
-  <br>
-    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-      data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-      Финансовые сервисы, скидки и кешбэк бонусами
-    </button>
-    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-      <div class="accordion-body">
-        <div class="progress-item-subs">
-          <div class="text-title-home">
-            <h2>Мегамаркет</h2>
-          </div>
-          <div class="text">Кешбэк до 12% бонусами</div>
+
+    <!-- Карточки подписок -->
+  <div class="subscriptions-grid">
+
+        {% for subscription in subscriptions_list %}
+
+        <div class="subscription-card">
+
+            <div class="subscription-card-top">
+                <span class="subscription-label">ПОДПИСКА</span>
+
+                <h2>{{ subscription.title }}</h2>
+
+                <div class="subscription-duration">
+                    {{ subscription.month }}
+                </div>
+            </div>
+
+            <div class="subscription-price">
+                <span class="subscription-price-number">
+                    {{ subscription.price }}
+                </span>
+                <span class="subscription-price-currency">₽</span>
+            </div>
+
+            <div class="subscription-price-caption">за выбранный период</div>
+
+            <div class="subscription-description">
+                {{ subscription.description|safe }}
+            </div>
+
+            {% if user.is_authenticated %}
+                <a href="{{ subscription.get_absolute_url }}"
+                   class="subscription-button">
+                    Выбрать подписку
+                    <span>→</span>
+                </a>
+            {% else %}
+                <a href="{% url 'account_login' %}"
+                   class="subscription-button">
+                    Выбрать подписку
+                    <span>→</span>
+                </a>
+            {% endif %}
+
         </div>
-        <div class="progress-item-subs">
-          <div class="text-title-home">
-            <h2>Самокат</h2>
-          </div>
-          <div class="text">Кешбэк до 9% бонусами</div>
+
+        {% empty %}
+
+        <div class="subscriptions-empty">
+            <h2>Подписок пока нет</h2>
+            <p>Загляни сюда немного позже.</p>
         </div>
-        <div class="progress-item-subs">
-          <div class="text-title-home">
-            <h2>СберМаркет</h2>
-          </div>
-          <div class="text">Кешбэк до 7% бонусами</div>
-        </div>
-        <div class="progress-item-subs">
-          <div class="text-title-home">
-            <h2>СберМобайл</h2>
-          </div>
-          <div class="text">1200 минут и 40 Гб в тарифе «СберПрайм Хит» или скидка 40% на другие тарифы
-            СберКарта
-          </div>
-        </div>
-      </div>
+
+        {% endfor %}
+
     </div>
 
-  </section> 
+    <!-- Преимущества -->
+    <div class="subscriptions-benefits">
+        <div class="subscription-benefit">
+            <span class="benefit-number">01</span>
+            <div>
+                <h3>Выбирай своё</h3>
+                <p>Подписка под твои предпочтения</p>
+            </div>
+        </div>
+
+        <div class="subscription-benefit">
+            <span class="benefit-number">02</span>
+            <div>
+                <h3>Смотри когда угодно</h3>
+                <p>Любимые истории в удобное время</p>
+            </div>
+        </div>
+
+        <div class="subscription-benefit">
+            <span class="benefit-number">03</span>
+            <div>
+                <h3>Открывай новое</h3>
+                <p>Находи фильмы по настроению</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Финансовые сервисы -->
+    <div class="subscription-partners-section">
+
+        <div class="subscription-partners-heading">
+            <div>
+                <span class="subscriptions-eyebrow">БОЛЬШЕ ВОЗМОЖНОСТЕЙ</span>
+                <h2>Бонусы и привилегии</h2>
+                <p>Дополнительные предложения от наших партнёров</p>
+            </div>
+        </div>
+
+        <div class="subscription-partners-grid">
+
+            <div class="subscription-partner-card">
+                <div class="subscription-partner-icon">М</div>
+                <div class="subscription-partner-info">
+                    <h3>Мегамаркет</h3>
+                    <p>Кешбэк бонусами</p>
+                </div>
+                <div class="subscription-partner-bonus">до 12%</div>
+            </div>
+
+            <div class="subscription-partner-card">
+                <div class="subscription-partner-icon">С</div>
+                <div class="subscription-partner-info">
+                    <h3>Самокат</h3>
+                    <p>Кешбэк бонусами</p>
+                </div>
+                <div class="subscription-partner-bonus">до 9%</div>
+            </div>
+
+            <div class="subscription-partner-card">
+                <div class="subscription-partner-icon">СМ</div>
+                <div class="subscription-partner-info">
+                    <h3>СберМаркет</h3>
+                    <p>Кешбэк бонусами</p>
+                </div>
+                <div class="subscription-partner-bonus">до 7%</div>
+            </div>
+
+            <div class="subscription-partner-card subscription-partner-card-mobile">
+                <div class="subscription-partner-icon">С</div>
+                <div class="subscription-partner-info">
+                    <h3>СберМобайл</h3>
+                    <p>1200 минут и 40 ГБ в тарифе «СберПрайм Хит» или скидка 40% на другие тарифы</p>
+                </div>
+                <div class="subscription-partner-bonus">−40%</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock subs %}

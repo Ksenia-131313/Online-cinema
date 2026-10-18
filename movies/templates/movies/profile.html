@@ -1,61 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="ab-info-main py-md-5 py-4 editContent">
+<section class="ab-info-main py-md-5 py-4 editContent sunshine-login">
   {% if request.user.is_authenticated %}
   {{ paysubs.subscriptions }}
-  <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
+
+  <div class="login-heading">
+    <span class="login-eyebrow">SUNSHINE CINEMA</span>
     <h1>Личные данные</h1>
+    <p>Твой профиль и управление подпиской</p>
   </div>
-  <div class="about-block">
-    <div style="flex-wrap: wrap; justify-content: center; display: flex">
-      <div class="text-title-home" style="margin-right:20px">
+
+  <div class="login-card">
+    <div class="login-description">
+      <h2>Мой профиль</h2>
+      <p>Информация о твоём аккаунте</p>
+    </div>
+
+    <div class="login-fields">
+      <p>
         <label>Логин</label>
         <input class="progress-item" style="width:100%" value="{{ request.user.username }}" disabled />
-      </div>
-      <div class="text-title-home" style="margin-right:20px">
+      </p>
+
+      <p>
         <label>Фамилия</label>
-        <input class="progress-item" style="width:100%;" value="{{ request.user.last_name }}" disabled />
-      </div>
-    </div>
+        <input class="progress-item" style="width:100%" value="{{ request.user.last_name }}" disabled />
+      </p>
 
-    <div style="flex-wrap: wrap; justify-content: center; display: flex">
-      <div class="text-title-home" style="margin-right:20px">
+      <p>
         <label>Имя</label>
-        <input class="progress-item" style="width:100%;" value="{{ request.user.first_name }}" disabled />
-      </div>
-      <div class="text-title-home" style="margin-right:20px">
+        <input class="progress-item" style="width:100%" value="{{ request.user.first_name }}" disabled />
+      </p>
+
+      <p>
         <label>Почта</label>
-        <input class="progress-item" style="width:100%;" value="{{ request.user.email }}" disabled />
-      </div>
+        <input class="progress-item" style="width:100%" value="{{ request.user.email }}" disabled />
+      </p>
+
+      <p>
+        <label>Подписка</label>
+        {% if user.profile.id in subid %}
+        <input class="progress-item" style="width:100%" value="Подписка активна" disabled />
+        {% else %}
+        <input class="progress-item" style="width:100%" value="Нет подписки" disabled />
+        {% endif %}
+      </p>
     </div>
 
-    <div style="flex-wrap: wrap; justify-content: center; display: flex">
-      {% if user.profile.id in subid %}
-      <div class="text-title-home" style="margin-right:20px">
-        <label>Подписка</label>
-        <input class="progress-item" style="width:100%;" value="Подписка активна" disabled />
-      </div>
-      {% else %}
-      <div class="text-title-home" style="margin-right:20px">
-        <label>Подписка</label>
-        <input class="progress-item" style="width:100%;" value="Hет подписки" disabled />
-      </div>
-      {% endif %}
+    <div class="profile-actions">
+      <a href="{% url 'subscription' %}" class="login-submit">
+        <span>Оформить подписку</span>
+        <span class="login-submit-arrow">→</span>
+      </a>
+
+      <a href="{% url 'edit_profile' %}" class="login-submit">
+        <span>Изменить профиль</span>
+        <span class="login-submit-arrow">→</span>
+      </a>
+
+      <a href="{% url 'delete_profile' request.user.id %}" class="login-submit">
+        <span>Удалить профиль</span>
+        <span class="login-submit-arrow">→</span>
+      </a>
     </div>
-
-  </div>
-  <div class="progress-list" style="display: flex; justify-content: center;">
-    <a href="{% url 'subscription' %}" class="btn mt-4"
-      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))">
-      Оформить подписку</a>
-
-    <a href="{% url 'edit_profile' %}" class="btn btn-outline-danger mt-4"
-      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px">Изменить профиль</a>
-
-    <a href="{% url 'delete_profile' request.user.id %}" class="btn mt-4"
-      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px; background: linear-gradient(rgb(22, 22, 22), rgb(18, 17, 17))">Удалить профиль</a>
-
   </div>
   {% endif %}
 </section>
 {% endblock content %}
+

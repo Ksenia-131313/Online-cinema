@@ -82,6 +82,7 @@ class Movie(models.Model):
     description_trel = models.TextField("Фильм", default='')
     description_film = models.TextField("Трейлер", default='')
     poster = models.ImageField("Постер", upload_to="movies/")
+    banner = models.ImageField("Баннер карусели", upload_to="movies/banners/", blank=True, null=True)
     year = models.PositiveSmallIntegerField("Дата выхода", default=2019)
     country = models.CharField("Страна", max_length=30)
     directors = models.ManyToManyField(Actor, verbose_name="режиссер", related_name="film_director")
