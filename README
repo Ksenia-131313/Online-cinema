@@ -1,0 +1,26 @@
+# Sunshine Cinema
+
+Веб-приложение онлайн-кинотеатра на Django.
+
+### Возможности
+- Каталог фильмов, поиск, фильтрация и сортировка.
+- Регистрация, авторизация и личный кабинет.
+- Рейтинги и отзывы о фильмах.
+- Система подписок.
+- REST API и документация Swagger / ReDoc.
+
+### Технологии
+Python, Django, SQLite, Django REST Framework, HTML, CSS, JavaScript.
+
+### Установка и запуск
+
+1. Клонируйте репозиторий:
+   ```bash git clone https://github.com/Ksenia-131313/Online-cinema.git cd Sunshine ```
+
+2. Создайте виртуальное окружение и установите зависимости:
+   ```bash python -m venv venv venv\Scripts\activate pip install -r requirements.txt ```
+
+3. Выполните миграции и запустите сервер:
+   ```bash python manage.py migrate python manage.py runserver ```
+
+Сайт будет доступен по адресу http://127.0.0.1:8000/.
