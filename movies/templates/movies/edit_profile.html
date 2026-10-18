@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="ab-info-main py-md-5 py-4 editContent">
+  <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
+    <h1>Редактирование профиля</h1>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="about-block">
+      <div style="flex-wrap: wrap; justify-content: center; display: flex">
+        <div class="text-title-home" style="margin-right:20px">
+          <label>Логин</label>
+          <input class="progress-item" name='username' style="width:100%" value="{{ user.username }}">
+          <input name='user.id' style="width:100%" value="{{ user.id }}" hidden="True">
+        </div>
+        <div class="text-title-home" style="margin-right:20px">
+          <label>Email</label>
+          <input class="progress-item" type="email" style="width:100%" name="email" value="{{ user.email }}">
+        </div>
+      </div>
+      <div style="flex-wrap: wrap; justify-content: center; display: flex">
+        <div class="text-title-home" style="margin-right:20px">
+          <label>Имя</label>
+          <input class="progress-item" type="text" name='first_name' style="width:100%" value="{{ user.first_name }}">
+        </div>
+        <div class="text-title-home" style="margin-right:20px">
+          <label>Фамилия</label>
+          <input class="progress-item" name='last_name' type="text" style="width:100%" value="{{ user.last_name }}">
+        </div>
+      </div>
+      <div class="progress-list" style="display: flex; justify-content: center;">
+        <button type="submit" class="btn btn-outline-danger mt-4"
+          style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px">Сохранить изменения
+        </button>
+        <a href="{% url 'profile' %}" class="btn btn-outline-danger mt-4"
+          style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px">Назад
+        </a>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+{% endblock content %}

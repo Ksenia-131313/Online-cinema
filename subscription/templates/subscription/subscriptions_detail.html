@@ -1,0 +1,69 @@
+{% extends 'subscription/base_subs_detail.html' %}
+{% load static %}
+{% block subs %}
+
+<section class="ab-info-main py-md-5 py-4 editContent">
+{% if  not user.profile.id in profiles  %}
+    <div class="title-movie mt-8">
+        <h1>Оформление подписки "{{ subscriptions.title }}"</h1>
+        <p class="text-title-home">Перед покупкой проверьте введенные данные</p>
+    </div>
+
+
+    <form method='post' class="mt-4" id="formReview" action="{% url 'add_pay' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="about-block">
+            <div style="flex-wrap: wrap; justify-content: center; display: flex">
+                <div class="text-title-home" style="margin-right:20px">
+                  <label>Подписка</label>
+                  <input class="progress-item"
+                    name='subscriptions_name' style="width:100%" value="{{ subscriptions.title }}" readonly  type ="text">
+                    <input name='subscriptions' style="width:100%" value="{{ subscriptions.id }}" hidden="True">
+                </div>
+      
+                <div class="text-title-home" style="margin-right:20px">
+                  <label>Дата начала подписки</label>
+                  <input class="progress-item"
+                    type="date" style="width:100%" name="valid_from" value="{{ time_now }}"  readonly>
+                </div>
+            </div>
+            <div style="flex-wrap: wrap; justify-content: center; display: flex">
+                {% if subscriptions.id == 2  %}
+                <div class="text-title-home" style="margin-right:20px">
+                    <label>Дата окончания подписки</label>
+                    <input class="progress-item" 
+                          type="date" name='valid_until' style="width:100%" value="{{ time_months }}"  readonly>
+                </div>
+                {% else %}
+                <div class="text-title-home" style="margin-right:20px">
+                    <label>Дата окончания подписки</label>
+                    <input class="progress-item"
+                          type="date" style="width:100%" name='valid_until' value="{{ time_year }}"  readonly >
+                  </div>
+                {% endif %}
+                <div class="text-title-home" style="margin-right:20px">
+                      <label>Покупатель</label>
+                      <input class="progress-item"
+                      name='profile_name' style="width:100%" value="{{ user.username }}" readonly >
+                      <input name='profile'  style="width:100%" value="{{ user.id }}" hidden="True" >
+                </div>
+            </div>
+        </div>
+        <div style="padding: 50px; flex-wrap: wrap; justify-content: center; display: flex">
+            <button type='submit'
+                style="padding: 10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63)); width: 50%">Оформить</button>
+        </div>
+    </form>
+
+{% else %}
+    <div class="title-movie mt-8">
+        <h1>{{ request.user.username }}, ваша подписка уже оформлена! </h1>
+        <p class="text-title-home">Дождитесь окончания старой! 
+        </p>
+    </div>
+{% endif %}
+
+    </div>
+</section>
+{% endblock subs %}

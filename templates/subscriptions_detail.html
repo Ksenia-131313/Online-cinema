@@ -1,0 +1,59 @@
+{% extends 'subscription/base_subs_detail.html' %}
+{% load static %}
+{% block subs %}
+
+<section class="ab-info-main py-md-5 py-4 editContent" style="padding-left: 3rem; padding-right: 3rem;">
+    <div class="title-movie mt-8">
+        <h1>Оформление подписки "{{ subscriptions.title }}"</h1>
+        <p class="text-title-home">Перед sssпокупкой проверьте введенные данные <br>
+            На почту будет выслано письмо с подтверждением оплаты
+        </p>
+        
+    </div>
+    <form method='post' class="mt-4" id="formReview" action="{% url 'add_pay' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="about-block" style="display: flex; align-items: center; flex-wrap: wrap;">
+            <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px; ">
+                <div class="text-title-home">Подписка</div>
+                <input class="progress-item" name='subscriptions' value ={{ subscriptions.title }}  style="width: 500px;">
+            </div>
+            <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;" >
+                <div class="text-title-home">Дата начала подписки</div>
+                <input class="progress-item" type ="date" name="valid_from"   style="width: 500px;">
+            </div>
+            <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;" >
+                <div class="text-title-home">Дата окончания подписки</div>
+                <input class="progress-item" type ="date" name='valid_until' style="width: 500px;">
+            </div>
+            <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;">
+                <div class="text-title-home">Покупатель</div>
+                <input class="progress-item" name='profile' value ={{ user.username }}  style="width: 500px;" >
+            </div>
+        </div>
+        <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;">
+            <button type='submit'
+                style="padding: 10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))">Оформить</button>
+        </div>
+    </form>
+
+
+    {% comment %} value="{{ request.user.first_name }}" disabled
+            value="{{ subscriptions.price }},00Ꝑ"  disabled{% endcomment %}
+           
+    {% comment %} <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;">
+        <div class="text-title-home">Способ оплаты</div>
+         <select name="pay" class="progress-item"style="width: 500px;">
+            <option >МИР</option>
+            <option>VISA</option>
+        </select>
+    </div> {% endcomment %}
+    
+
+
+    
+</section>
+   
+
+
+{% endblock subs %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} {% endblock title %}
+{% block content %}
+    <section class="ab-info-main py-md-5 py-4 editContent">
+        <a href="/" style="color: rgb(224, 17, 17);">&lt; Все фильмы</a>
+        {% block container %}
+            <div class="container-fluid py-md-3">
+        {% endblock container %}
+        <div class="row wrapper_items_films">
+
+            {% block movie %}
+            {% endblock movie %}
+        </div>
+        </div>
+    </section>
+{% endblock content %}

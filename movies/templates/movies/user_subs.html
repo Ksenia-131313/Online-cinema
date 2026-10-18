@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="ab-info-main py-md-5 py-4 editContent">
+    {% if request.user.is_authenticated %}
+    <div class="text-title-home">
+        {% for profile_sub in profile_subs %}
+            {{ profile_sub.profile }}
+            {{ profile_sub.subscription }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+
+
+</section>
+{% endblock content %}

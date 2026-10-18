@@ -1,0 +1,36 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<section class="ab-info-main py-md-5 py-4 editContent">
+  <div class="title-entry">
+    <h1>Регистрация</h1>
+  </div>
+  <div class="lg-entry">
+    Для регистрации на нашем сайте укажите ваши данные:<br> Если вы уже зарегистрированы, войдите в <a href="{{ login_url }}">свой аккаунт.</a>
+  </div>
+  <div class="about-block">
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      <div class="progress-item-entry ">
+        <div class="lg-entry" style="max-width: 800px; margin: 0 auto; ">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+        </div>
+        <div class="title-entry">
+          <button class="btn btn-outline-danger mt-3" style="width: calc(33.333% - 16px);" type="submit">Зарегистрироваться</button>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+</section>
+
+{% endblock %}

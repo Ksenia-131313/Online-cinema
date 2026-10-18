@@ -1,0 +1,104 @@
+{% extends 'movies/base.html' %}
+{% block title %} {% endblock title %}
+{% block header %} bg1 {% endblock header %}
+{% block movie %}
+<div class="left-ads-display col-lg-9">
+    <div class="text-title-home">
+        <a href="{% url 'subscription' %}">
+            <h1>Подписка на онлайн-кинотеатр Sunshine</h1>
+        </a>
+    </div>
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+
+        </div>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <button class="progress-item-subs"
+                    style="background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63));">
+                    <a href="{% url 'subscription' %}">
+                        <div class="text-title-home">
+                            <h2>Ежемесячно</h2>
+                            <p>месяц</p>
+                        </div>
+                        <p class="md-text medium"> Просмотр любимых фильмов всего за <span
+                                class="red-bg">299,00Ꝑ</span>!!!<br>
+                            <br> <span class="red-bg">Скидки, кешбек и бонусы от наших партнеров</span>
+                        </p>
+                    </a>
+                </button>
+            </div>
+            <div class="carousel-item">
+                <button class="progress-item-subs"
+                    style="background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63));">
+                    <a href="{% url 'subscription' %}">
+                        <div class="text-title-home">
+                            <h2>Ежегодно</h2>
+                            <p>165,00Ꝑ в месяц</p>
+                        </div>
+                        <p class="md-text medium"> Просмотр любимых фильмов всего за <span class="red-bg">1
+                                999,00Ꝑ</span>!!!<br><br>
+                            <span class="red-bg">Скидки, кешбек и бонусы от наших партнеров</span>
+                        </p>
+                    </a>
+                </button>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <br>
+  
+    <br>
+    <div class="row">
+       
+        {% for movie in movie_list %}
+        <div class="col-md-3 product-men">
+            <div class="product-shoe-info editContent">
+                <div class="men-thumb-item">
+                    <img src="{{ movie.poster.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="item-info-product">
+                    <h4 class="title-color">
+                        <a href="{{ movie.get_absolute_url }}" class="editContent">
+                            <div class="text-color">{{ movie.title }}</div>
+                        </a>
+                    </h4>
+
+                    <div class="product_price">
+                        <div class="grid-price">
+                            <span class="money editContent">
+                                {% for genre in movie.genres.all %}
+                                {{ genre.name }}
+                                {% endfor %}
+                            </span>
+                            <br>
+                             {% if user.is_staff %}
+                                <a href="{% url 'delete_movie' movie.id %}" style="color: red">Удалить фильм</a>
+                             {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="grid-img-right mt-4 text-right bg bg1">
+        {% include 'include/pagination.html' %}
+    </div>
+</div>
+{% endblock movie %}

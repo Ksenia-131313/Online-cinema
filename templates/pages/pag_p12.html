@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="ab-info-main py-md-5 py-4 editContent" style="padding-left: 3rem; padding-right: 3rem;">
+    <div class="container">
+        <div class="row">
+            <a href="/news_program/" style="color: rgb(224, 17, 17);"> &lt; Назад</a>
+            <br><br>
+            <div class="text-title-home" >
+                <h1>{{ flatpage.content }}</h1>
+            </div>
+            <div class="text">
+                <p class="md-text medium"> <span class="red-bg">1. Количество просмотренных фильмов:</span> <br><br>
+                    Оператор Времени: 2<br>Магистр Времени: 5<br>Повелитель Времени: 8
+                    <br><br>
+                    Необходимо посмотреть разные фильмы, не несколько раз один и тот же.
+                    <br><br>
+                    Если в текущем квартале вы посмотрите менее 2 фильмов, вы получите первый Уровень "Посвященный".
+                    <br><br>
+                    <span class="red-bg">2. Сроки расчета:</span>
+                    <br><br>С 10 числа первого месяца квартала по 9 число месяца, следующего за концом расчетного
+                    квартала<br><br>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'subscription/base_subs_detail.html' %}
+{% load static %}
+{% block subs %}
+     <p class="text-title-home">Перед покупкой проверьте введенные данные <br>
+            <form method='post' class="mt-4" id="formReview" action="{% url 'add_pay' %}">
+                 {% csrf_token %}
+                 {{ form.as_p }}
+
+        <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;">
+            <button type='submit'
+                style="padding: 10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))">Оформить</button>
+        </div>
+    </form>
+         {% comment %} value="{{ request.user.first_name }}" disabled
+            value="{{ subscriptions.price }},00Ꝑ"  disabled{% endcomment %}
+
+    {% comment %} <div class="progress-list" style="display: flex; flex-direction: column; padding: 10px;">
+        <div class="text-title-home">Способ оплаты</div>
+         <select name="pay" class="progress-item"style="width: 500px;">
+            <option >МИР</option>
+            <option>VISA</option>
+        </select>
+    </div> {% endcomment %}
+
+{% endblock subs %}
+

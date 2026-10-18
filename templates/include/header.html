@@ -1,0 +1,59 @@
+{% load movie_tag %}
+{% load static %}
+<header class="header">
+    <img class="banner" src="../../media/banner/banner.jpg" alt="banner">
+    <div class="wrapper_top_nav">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="width: 100%;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% static '/' %}">
+                    <img src='{% static "/images/logo.jpg" %}' class="logo-sait" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span style="color: #fff;">&#9776;</span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Киноафиша</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about/">О компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/news/">Новости</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contacts/">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/news_program/">Программа лояльности</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'subscription' %}">Оформить подписку</a>
+                        </li>
+                    </ul>
+                    <div class="breadcrumb-item">
+                        {% if user.is_authenticated %}
+                            <div class="dropdown">
+                                <button class="btn dropbtn">{{ user.username }}</button>
+                                <div class="dropdown-content">
+                                    <a href="{% url 'profile' %}" class="editContent">Профиль</a>
+                                    <a href="{% url 'account_logout' %}">Выход</a>
+                                    {% if perms.movies.add_banner %}
+                                        <a href="/admin/" class="editContent">Административная панель</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'account_login' %}" class="btn btn-outline-danger"
+                            style="max-width: 600px; ">
+                                Личный кабинет</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

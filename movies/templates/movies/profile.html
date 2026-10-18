@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="ab-info-main py-md-5 py-4 editContent">
+  {% if request.user.is_authenticated %}
+  {{ paysubs.subscriptions }}
+  <div class="text-title-home" style="flex-wrap: wrap; justify-content: center; display: flex">
+    <h1>Личные данные</h1>
+  </div>
+  <div class="about-block">
+    <div style="flex-wrap: wrap; justify-content: center; display: flex">
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Логин</label>
+        <input class="progress-item" style="width:100%" value="{{ request.user.username }}" disabled />
+      </div>
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Фамилия</label>
+        <input class="progress-item" style="width:100%;" value="{{ request.user.last_name }}" disabled />
+      </div>
+    </div>
+
+    <div style="flex-wrap: wrap; justify-content: center; display: flex">
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Имя</label>
+        <input class="progress-item" style="width:100%;" value="{{ request.user.first_name }}" disabled />
+      </div>
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Почта</label>
+        <input class="progress-item" style="width:100%;" value="{{ request.user.email }}" disabled />
+      </div>
+    </div>
+
+    <div style="flex-wrap: wrap; justify-content: center; display: flex">
+      {% if user.profile.id in subid %}
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Подписка</label>
+        <input class="progress-item" style="width:100%;" value="Подписка активна" disabled />
+      </div>
+      {% else %}
+      <div class="text-title-home" style="margin-right:20px">
+        <label>Подписка</label>
+        <input class="progress-item" style="width:100%;" value="Hет подписки" disabled />
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+  <div class="progress-list" style="display: flex; justify-content: center;">
+    <a href="{% url 'subscription' %}" class="btn mt-4"
+      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px; background: linear-gradient(rgb(245, 111, 96), rgb(226, 231, 63))">
+      Оформить подписку</a>
+
+    <a href="{% url 'edit_profile' %}" class="btn btn-outline-danger mt-4"
+      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px">Изменить профиль</a>
+
+    <a href="{% url 'delete_profile' request.user.id %}" class="btn mt-4"
+      style="width: calc(33.333% - 16px);width: 500px; padding: 10px;margin:10px; background: linear-gradient(rgb(22, 22, 22), rgb(18, 17, 17))">Удалить профиль</a>
+
+  </div>
+  {% endif %}
+</section>
+{% endblock content %}
